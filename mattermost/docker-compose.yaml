@@ -19,10 +19,10 @@ services:
       - mattermost_client:/mattermost/client/plugins
       - mattermost_bleve-indexes:/mattermost/bleve-indexes
     ports:
-      - "127.0.0.1:8065:8065"
+      - "192.168.10.28:8065:8065"
       #Calls VCS
-#      - "8443:8443/udp"
-#      - "8443:8443/tcp"
+      - "8443:8443/udp"
+      - "8443:8443/tcp"
     networks: 
       shared_network_04:
         ipv4_address: 172.103.0.100
