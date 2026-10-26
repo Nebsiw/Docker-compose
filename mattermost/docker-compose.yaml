@@ -16,7 +16,7 @@ services:
       - mattermost_data:/mattermost/data
       - mattermost_logs:/mattermost/logs
       - mattermost_plugins:/mattermost/plugins
-      - mattermost_client:/mattermost/client
+      - mattermost_client:/mattermost/client/plugins
       - mattermost_bleve-indexes:/mattermost/bleve-indexes
     ports:
       - "8065:8065"
