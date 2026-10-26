@@ -1,0 +1,21 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /opt/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /opt/nginx/ssl:/etc/nginx/ssl:ro
+      - /opt/nginx/log:/var/log/nginx
+      - /usr/local/share/ca-certificates:/usr/local/share/ca-certificates:ro
+    networks:
+      one:
+        ipv4_address: 172.172.0.10
+    restart: unless-stopped
+
+networks:
+  one:
+      external: true
