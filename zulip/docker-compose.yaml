@@ -2,6 +2,7 @@
 services:
   zulip_database:
     image: "zulip/zulip-postgresql:14"
+    container_name: zulip_database
     restart: unless-stopped
     secrets:
       - zulip__postgres_password
@@ -17,6 +18,7 @@ services:
         ipv4_address: 172.103.0.151
   zulip_memcached:
     image: "memcached:alpine"
+    container_name: zulip_memcached
     restart: unless-stopped
     command:
       - "sh"
@@ -38,6 +40,7 @@ services:
         ipv4_address: 172.103.0.152
   zulip_rabbitmq:
     image: "rabbitmq:4.2"
+    container_name: zulip_rabbitmq
     restart: unless-stopped
     command:
       - "sh"
@@ -60,6 +63,7 @@ services:
         ipv4_address: 172.103.0.153
   zulip_redis:
     image: "redis:alpine"
+    container_name: zulip_redis
     restart: unless-stopped
     command:
       - "sh"
@@ -77,6 +81,7 @@ services:
         ipv4_address: 172.103.0.154
   zulip:
     image: "ghcr.io/zulip/zulip-server:12.3-0"
+    container_name: zulip
     restart: unless-stopped
     ports:
 #      - name: smtp
