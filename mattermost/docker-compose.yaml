@@ -19,7 +19,7 @@ services:
       - mattermost_client:/mattermost/client
       - mattermost_bleve-indexes:/mattermost/bleve-indexes
     ports:
-      - "127.0.0.1:8065:8065"
+      - "8065:8065"
       #Calls VCS
 #      - "8443:8443/udp"
 #      - "8443:8443/tcp"
