@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+
+# Various IDEs
+.project
+.idea/
+*.tmproj
+
+# Secrets
+/.env
+
+# Local configuration
+/compose.override.yaml
+/helm/zulip/values-local.yaml
+
+# Cached sub-charts
+/helm/zulip/charts/
+
+# Node (prettier is a dev dependency for CI linting)
+/node_modules/
+
+# Built docs
+/docs/_build/
