@@ -104,21 +104,30 @@ services:
       - zulip__secret_key
       - zulip__email_password
     environment:
-      # Default hostnames; configure your application in compose.override.yaml
-      SETTING_REMOTE_POSTGRES_HOST: "zulip_database"
-      SETTING_MEMCACHED_LOCATION: "zulip_memcached:11211"
-      SETTING_RABBITMQ_HOST: "zulip_rabbitmq"
-      SETTING_REDIS_HOST: "zulip_redis"
-      SETTING_EXTERNAL_HOST: "zulip.metasoftpro.ru"
-      SETTING_ZULIP_ADMINISTRATOR: "latyshevva@metasoftpro.ru"
-      LOADBALANCER_IPS: "172.21.101.11/32"
-      SETTING_EMAIL_HOST: "smtp.yandex.ru"
-      SETTING_EMAIL_HOST_USER: "reporter@metasoftpro.ru"
-      SETTING_EMAIL_PORT: "465"
-      SETTING_EMAIL_USE_SSL: True
-      SETTING_EMAIL_USE_TLS: False
+      ZULIP__POSTGRES_PASSWORD: ${ZULIP__POSTGRES_PASSWORD}
+      ZULIP__MEMCACHED_PASSWORD: ${ZULIP__MEMCACHED_PASSWORD}
+      ZULIP__RABBITMQ_PASSWORD: ${ZULIP__RABBITMQ_PASSWORD}
+      ZULIP__REDIS_PASSWORD: ${ZULIP__REDIS_PASSWORD}
+      ZULIP__SECRET_KEY: ${ZULIP__SECRET_KEY}
+      ZULIP__EMAIL_PASSWORD: ${ZULIP__EMAIL_PASSWORD}
+      #services
+      SETTING_REMOTE_POSTGRES_HOST: ${SETTING_REMOTE_POSTGRES_HOST}
+      SETTING_MEMCACHED_LOCATION: ${SETTING_MEMCACHED_LOCATION}
+      SETTING_RABBITMQ_HOST: ${SETTING_RABBITMQ_HOST}
+      SETTING_REDIS_HOST: ${SETTING_REDIS_HOST}
+      SETTING_EXTERNAL_HOST: ${SETTING_EXTERNAL_HOST}
+      SETTING_ZULIP_ADMINISTRATOR: ${SETTING_ZULIP_ADMINISTRATOR}
+      #IP
+      LOADBALANCER_IPS: ${LOADBALANCER_IPS}
+      #Mail
+      SETTING_EMAIL_HOST: ${SETTING_EMAIL_HOST}
+      SETTING_EMAIL_HOST_USER: ${SETTING_EMAIL_HOST_USER}
+      SETTING_EMAIL_PORT: ${SETTING_EMAIL_PORT}
+      SETTING_EMAIL_USE_SSL: ${SETTING_EMAIL_USE_SSL}
+      SETTING_EMAIL_USE_TLS: ${SETTING_EMAIL_USE_TLS}
     volumes:
-      - "zulip_data:/data:rw"
+      - zulip_data:/data
+      - zulip_config:/etc/zulip
     ulimits:
       nofile:
         soft: 1000000
