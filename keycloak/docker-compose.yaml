@@ -1,0 +1,59 @@
+services:
+  keycloak-db:
+    image: postgres:17
+    restart: unless-stopped
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KC_DB_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - keycloak_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: 
+      shared_network_04:
+        ipv4_address: 172.103.0.201
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.5
+    restart: unless-stopped
+    container_name: keycloak
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    command: start
+    mem_limit: 2g
+    environment:
+      TZ: ${TZ}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USER}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_HOSTNAME: https://${KC_DOMAIN}
+      KC_HOSTNAME_ADMIN: http://${LAN_IP}:8081
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: xforwarded
+      KC_PROXY_TRUSTED_ADDRESSES: ${WG_PROXY_IP}
+      KC_HEALTH_ENABLED: "true"
+    ports:
+      - "${LAN_IP}:8081:8080"
+    security_opt:
+      - no-new-privileges:true
+    networks: 
+      shared_network_04:
+        ipv4_address: 172.103.0.200
+
+volumes:
+  keycloak_db:
+    external: true
+
+networks:
+  shared_network_04:
+    external: true
