@@ -144,6 +144,8 @@ services:
 volumes:
   zulip_data:
     external: true
+  zulip_config:
+    external: true
   zulip_postgresql-14:
     external: true
   zulip_rabbitmq:
