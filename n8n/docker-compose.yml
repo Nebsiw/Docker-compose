@@ -35,18 +35,18 @@ services:
       - /etc/ssl/certs:/etc/ssl/certs:ro
     networks:
       one:
-        ipv4_address: 172.27.0.22
+        ipv4_address: 172.100.0.70
 
-  task-runner:
-    image: n8nio/runners:latest
-    container_name: n8n-task-runner
-    restart: unless-stopped
-    environment:
-      - N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679
-      - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
-    networks:
-      one:
-        ipv4_address: 172.27.0.26
+#  task-runner:
+#    image: n8nio/runners:latest
+#    container_name: n8n-task-runner
+#    restart: unless-stopped
+#    environment:
+#      - N8N_RUNNERS_TASK_BROKER_URI=http://n8n.metasoftpro.local:5679
+#      - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
+#    networks:
+#      one:
+#        ipv4_address: 172.27.0.26
 
 networks:
   one:
