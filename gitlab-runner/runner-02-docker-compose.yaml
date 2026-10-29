@@ -1,0 +1,16 @@
+services:
+    gitlab-runner_01:
+        image: gitlab/gitlab-runner:latest
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - gitlab_runner-02:/etc/gitlab-runner
+        networks:
+            - shared_network_02
+volumes:
+    gitlab_runner-02:
+      external: true
+
+networks:
+  shared_network_02:
+    external: true
+    name: shared_network_02
