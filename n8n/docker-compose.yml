@@ -30,6 +30,7 @@ services:
       - N8N_LOG_OUTPUT=${N8N_LOG_OUTPUT:-}
       - N8N_LOG_LEVEL=${N8N_LOG_LEVEL:-info}
       - NODE_USE_SYSTEM_CA=${NODE_USE_SYSTEM_CA:-1}
+      - N8N_PORT=${N8N_PORT:-5678}
     volumes:
       - n8n_data:/home/node/.n8n
       - /etc/ssl/certs:/etc/ssl/certs:ro
